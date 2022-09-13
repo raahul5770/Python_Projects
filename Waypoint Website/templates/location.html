@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/style.css" type="text/css" >
+        <title>Find Locations</title>
+    </head>
+
+    <body>
+        
+        <div id = "navbar">
+            <header>
+                <nav class = 'navib'>
+                    <div>
+                        <a class="nav" href = "./">Home</a>
+                        <a class="nav" href = "./location">Find Places</a>
+                        <a class="nav" href = "./about">About</a>
+                        <a class="nav" href = "./contact">Contact Us</a>
+                    </div>
+                </nav>
+            </header>
+        </div>
+
+        <div>
+            <h1>Find Locations</h1>
+        </div>
+
+        <div>
+            <form action="/results" method="POST" >
+            <h2>Pick your Preferences</h2>
+            <input id = "use_local" class="location_button" name="location_option" type="radio" value="use_location" onclick="display_use_local()" required>
+            <label>Use Your Location</label>
+            <input id = "use_city" class="location_button" name="location_option" type="radio" value="use_city" onclick="display_use_city()" required>
+            <label>Enter Preferred City</label>
+            <br>
+        </div>
+
+        <div>
+            
+            <label class="city_input">Please enter in a city name with state initials ex.(Boston,MA)</label>
+            <input class="city_input" name="city_button" type="text">
+            <br>
+        </div>
+
+
+        <div>
+            <label class="form_options">Please choose which catergory you want to search for</label>
+            <select id="category_button" name="category_button" class="form_options" onchange= "display_food_options()" required>
+                <option value="none" selected hidden disabled>Select an Option</option>
+                <option value="Restaurants" >Restaurants</option>
+                <option value="Coffee Tea" >Coffee Tea</option>
+                <option value="Fast Food" >Fast Food</option>
+                <option value="Movie Theaters" >Movie Theaters</option>
+                <option value="Sights and Museums" >Sights and Museums</option>
+                <option value="Religious Places" >Religious Places</option>
+                <option value="Nature Sights" >Nature Sights</option>
+                <option value="Public Transport" >Public Transport</option>
+                <option value="Transportation Services" >Transportation Services</option>
+                <option value="Airports" >Airports</option>
+                <option value="Rest Areas" >Rest Areas</option>
+                <option value="Accommodations" >Accommodations</option>
+                <option value="Land Activities/Theme Parks" >Land Activities/Theme Parks</option>
+                <option value="Fun Attractions" >Fun Attractions</option>
+                <option value="Natural Parks" >Natural Parks</option>
+                <option value="Department Stores" >Department Stores</option>
+                <option value="Malls" >Malls</option>
+                <option value="Pharmacies" >Pharmacies</option>
+                <option value="Food Shops/Bakeries" >Food Shops/Bakeries</option>
+                <option value="Grocery" >Grocery</option>
+                <option value="Electronics" >Electronics</option>
+                <option value="Home/Hardware" >Home/Hardware</option>
+                <option value="Clothing Shops" >Clothing Shops</option>
+                <option value="Consumer Goods" >Consumer Goods</option>
+                <option value="Barber" >Barber</option>
+                <option value="ATM" >ATM</option>
+                <option value="Banks" >Banks</option>
+                <option value="Consumer Services" >Consumer Services</option>
+                <option value="Post Office" >Post Office</option>
+                <option value="Gas Stations" >Gas Stations</option>
+                <option value="EV Charging Stations" >EV Charging Stations</option>
+                <option value="Car Dealers" >Car Dealers</option>
+                <option value="Car Repair" >Car Repair</option>
+                <option value="Car Rentals" >Car Rentals</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Schools" >Schools</option>
+                <option value="Libraries" >Libraries</option>
+                <option value="Parking">Parking</option>
+                <option value="Public Outdoor Restrooms" >Public Outdoor Restrooms</option>
+                <option value="Covid-19 Testing" >Covid-19 Testing</option>
+            </select>
+            <br>
+            
+            <label id="restaurant_option_label" class="restaurant_options">Choose Restaurant Type</label>
+            <select id="restaurant_button" name="restaurant_button" class="restaurant_options" required>
+                <option value="Search All">Search All</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="American">American</option>
+                <option value="Mexican">Mexican</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Indian">Indian</option>
+                <option value="North Indian">North Indian</option>
+                <option value="South Indian">South Indian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Southeast Asian">Southeast Asian</option>
+                <option value="Middle-Eastern">Middle-Eastern</option>
+                <option value="Sri Lankan">Sri Lankan</option>
+                <option value="Thai">Thai</option>
+                <option value="French">French</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Greek">Greek</option>
+                <option value="Italian">Italian</option>
+                <option value="German">German</option>
+                <option value="Mediterranean">Mediterranean</option>
+                <option value="Russian">Russian</option>
+                <option value="Sweedish">Sweedish</option>
+                <option value="South American">South American</option>
+                <option value="African">African</option>
+                <option value="Ethiopian">Ethiopian</option>
+                <option value="Irish">Irish</option>
+                <option value="Oceanic">Oceanic</option>
+                <option value="Pizza">Pizza</option>
+                <option value="Noodles">Noodles</option>
+                <option value="Ice Cream">Ice Cream</option>
+            </select>
+            
+
+            <label class="fastfood_options">Choose Fast Food Type</label>
+            <select id="fastfood_button" name="fastfood_button" class="fastfood_options" required>
+                <option value="Search All">Search All</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Vegan">Vegan</option>
+                <option value="Pizza">Pizza</option>
+                <option value="Burgers">Burgers</option>
+                <option value="Noodles">Noodles</option>
+                <option value="Ice_cream">Ice Cream</option>
+            </select>
+
+            <br>
+            <label class="form_options">How many results would you like?</label>
+            <input id="limit_button" class="form_options" name="limit_button" type="number" min="1" required>
+            <br>
+
+            
+            
+
+        </div>
+
+
+        <div> 
+
+            <input search_button class="form_options" name="submit_button" type="submit" value="Search Now">
+            </form>
+        </div>
+
+        <div>
+
+        </div>
+
+        </body>
+
+    
+    <script>
+        function display_use_local(){
+            var city_input = document.getElementsByClassName('city_input')
+            for (let i =0; i<city_input.length;i++){
+                city_input[i].style.display = "none"
+            }
+
+            var form_options = document.getElementsByClassName('form_options')
+            for (let j=0; j<form_options.length; j++){
+                form_options[j].style.display = "block"
+            }
+
+
+        }
+
+        function display_use_city(){
+            var city_input = document.getElementsByClassName('city_input')
+            for (let i =0; i<city_input.length;i++){
+                city_input[i].style.display = "block"
+            }
+
+            var form_options = document.getElementsByClassName('form_options')
+            for (let j=0; j<form_options.length; j++){
+                form_options[j].style.display = "block"
+            }
+
+        }
+            /*var restaurant_options = document.getElementsByClassName('restaurant_options')
+            if(restaurant_options[1].value == "Restaurants"){
+                for (let i =0; i<restaurant_options.length;i++){
+                    restaurant_options[i].style.display = "block"
+                }
+            } else {
+                for (let i =0; i<restaurant_options.length;i++){
+                    restaurant_options[i].style.display = "none"
+                }
+            }*/
+
+
+        function display_food_options(){
+            var category_button = document.getElementById('category_button')
+            var restaurant_options = document.getElementsByClassName('restaurant_options')
+
+            if (category_button.value === "Restaurants"){
+                for (let i =0; i<restaurant_options.length;i++){
+                    restaurant_options[i].style.display = "block"
+                    
+                }  
+            } else {
+                for (let i =0; i<restaurant_options.length;i++){
+                    restaurant_options[i].style.display = "none"
+                }
+            }
+
+           
+            var fastfood_options = document.getElementsByClassName('fastfood_options')
+
+            if (category_button.value === "Fast Food"){
+                for (let i =0; i<fastfood_options.length;i++){
+                    fastfood_options[i].style.display = "block"
+                    
+                }
+            } else {
+                for (let i =0; i<fastfood_options.length;i++){
+                    fastfood_options[i].style.display = "none"
+                }
+            }
+            
+                    
+        }
+        
+    </script>
+
+    </body>
+
+    <footer>
+
+    </footer>
+</html>

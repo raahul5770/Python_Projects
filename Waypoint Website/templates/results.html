@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../static/css/style.css" type="text/css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id = "navbar">
+            <header>
+                <nav class = 'navib'>
+                    <div>
+                        <a class="nav" href = "./">Home</a>
+                        <a class="nav" href = "./location">Find Places</a>
+                        <a class="nav" href = "./about">About</a>
+                        <a class="nav" href = "./contact">Contact Us</a>
+                    </div>
+                </nav>
+            </header>
+        </div>
+        <div>
+        
+        {%if 'items' in hresponse_here%}
+            {%if((hresponse_here['items'])|length) == 0%}
+                <p>No Search Results Found! Please Try Again</p>
+            {%else%}
+                <h3>Places Found Near This Location</h3>
+                {% for i in hresponse_here['items']%}
+                   
+                    {%if 'title' in i%}
+                        <p class="results">Name: {{i['title']}}</p>
+                    {%else%}
+                        <p class="results">Name: Unknown Title</p>
+                    {%endif%}
+
+
+                    {%if 'distance' in i and hurl_function_response[1] == False%}
+                        <p class="results">Distance From You: {{(i['distance'])}} Meters</p>
+                    {%else%}
+                        <p class="results">Distance From You: Unknown</p>
+                    {%endif%}
+
+                    {%if 'address' in i%}
+                        {%if 'city' in i['address']%}
+                            {%if 'stateCode' in i['address']%}
+                                {%if 'countryCode' in i['address']%}
+                                    <p class="results">City: {{i["address"]["city"]}}, {{i["address"]["stateCode"]}}, {{i["address"]["countryCode"]}}</p>
+                                {%else%}
+                                    <p class="results">City: {{i["address"]["city"]}}, {{i["address"]["stateCode"]}}</p>
+                                {%endif%}
+                            {%else%}
+                                <p class="results">City: {{i["address"]["city"]}}</p>     
+                            {%endif%}                       
+                        {%else%}
+                            <p class="results">City: Not Found</p>
+                        {%endif%}
+                    {%else%}
+                        <p class="results">City: Not Found</p>
+                    {%endif%}
+
+
+
+                    {%if 'openingHours' in i%}
+                        {%if 'isOpen' in i['openingHours'][0]%}
+                            {%if i['openingHours'][0]['isOpen'] == True%}
+                                <p class="results">Status: Open Now</p>
+                            {%endif%}
+
+                            {%if i['openingHours'][0]['isOpen'] == False%}
+                                <p class="results">Status: Closed</p>
+                            {%endif%}
+
+                        {%else%}
+                            <p class="results">Status: Unknown if Open Now</p>
+                        {%endif%}
+                    {%else%}
+                        <p class="results">Status: Unknown if Open Now</p>
+                    {%endif%}
+
+
+                    <form action = "./moreinfo" method = "post">
+                        <button type = "submit" name = "more_info_button" value = "{{loop.index}}">Click Here To Get More Info</button>
+                    </form>
+                    
+                    <br>
+
+
+                {%endfor%}
+            {%endif%}
+        {%endif%}
+            
+        </div>   
+
+    </body>
+
+    <footer>
+
+    </footer>
+</html>
